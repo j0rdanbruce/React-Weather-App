@@ -1,5 +1,5 @@
 import { useState } from "react";
-import LocationForm from "./components/LocationForm";
+import LocationForm from "./components/LocationForm/LocationForm";
 
 function App() {
   const [location, setLocation] = useState({
