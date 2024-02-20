@@ -1,20 +1,23 @@
 /**
  * JavaScript class to represent the Weather Stack Api
  */
-import weatherStackApiKey from '../secret';
 import axios from 'axios';
 
-class WeatherStackAPI {
+const weatherStackAPI = require('../secret.js');
+
+export default class WeatherStackAPI {
     constructor() {
         this.baseUrl = 'http://api.weatherstack.com/';
-        this.apiKey = weatherStackApiKey;
+        this.apiKey = weatherStackAPI;
     }
 
     getCurrentWeatherData(city) {
         axios.get(this.baseUrl + 'current?access_key=' + this.apiKey + '&query=' + city)
             .then(response => {
-                const weatherData = response.data;
+                return response.data;
             })
-        return weatherData;
+            .catch(error => {
+                return 'Network Error';
+            })
     }
 }
