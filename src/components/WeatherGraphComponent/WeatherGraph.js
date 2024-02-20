@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 const WeatherGraph = ({className, location}) => {
 
 	return (
-		<Card className="weather-graph">
+		<Card className={className}>
 			<Card.Body>
 				Weather Graph
 			</Card.Body>
