@@ -16,5 +16,8 @@ export default class WeatherStackAPI {
             .then(response => {
                 return response.data;
             })
+            .catch(error => {
+                return 'Network Error';
+            })
     }
 }

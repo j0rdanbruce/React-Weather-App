@@ -2,12 +2,13 @@
 import { useState } from "react";
 
 
-const LocationForm = ({setLocation}) => {
+const LocationForm = ({location, setLocation}) => {
 	const [city, setCity] = useState("");
 
 	const handleLocationSearch = (event) => {
 		event.preventDefault();
 		setLocation({
+			...location,
 			city: city,
 		});
 		setCity("");		//clears the search box so the city value set to empty string "".

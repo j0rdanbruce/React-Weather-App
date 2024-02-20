@@ -3,22 +3,32 @@
  */
 
 //imports go here
+import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
-import WeatherStackAPI from '../../modules/WeatherStack';
-
 
 const CurrentWeather = ({
 	className,
 	location,
 }) => {
 
-	let weatherApi = new WeatherStackAPI();
+	const [currentWeather, setCurrentWeather] = useState(null);
+
+	useEffect(() => {
+		location.city && fetch('http://api.weatherstack.com/current?access_key=bfc1359347b2fac139c86edd5d68eb81&query=' + location.city)
+			.then((response) => response.json())
+			.then((data) => {
+				setCurrentWeather(data);
+			})
+			.catch((error) => {
+				console.error(error);
+			})
+	}, [location]);
 
 	return (
 		<Card>
 			<Card.Body>
 				<Card.Text>
-					{weatherApi.getCurrentWeatherData(location.city)}
+					{currentWeather ? JSON.stringify(currentWeather) : null}
 				</Card.Text>
 			</Card.Body>
 		</Card>
