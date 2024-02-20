@@ -5,7 +5,11 @@ import weatherStackApiKey from '../secret';
 
 class WeatherStackAPI {
     constructor() {
-        this.baseUrl = 'http://api.weatherstack.com';
+        this.baseUrl = 'http://api.weatherstack.com/';
         this.apiKey = weatherStackApiKey;
+    }
+
+    getCurrentWeatherData(city) {
+        
     }
 }
