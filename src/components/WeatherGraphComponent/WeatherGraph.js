@@ -1,10 +1,14 @@
-import { Card } from "react-bootstrap/Card";
+import Card from "react-bootstrap/Card";
 
-const WeatherGraph = () => {
+const WeatherGraph = ({className, location}) => {
 
-    return (
-        <div className="weather-graph">
-            
-        </div>
-    );
+	return (
+		<Card className="weather-graph">
+			<Card.Body>
+				Weather Graph
+			</Card.Body>
+		</Card>
+	);
 }
+
+export default WeatherGraph;
