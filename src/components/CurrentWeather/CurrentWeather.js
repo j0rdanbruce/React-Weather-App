@@ -2,30 +2,53 @@
  * React component to display the current weather
  */
 
-//imports go here
+//React imports go here
 import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
-import Image from "react-bootstrap/Image";
 
 //image imports
 import rainCloud from '../../images/rainCloud.png';
 import partlyCloudy from '../../images/partlyCloudy.png';
 import sun from '../../images/sun.png';
+import overcast from '../../images/overcast.png';
 
 
 /**
  * The image thumbnail component for the current weather forecast component
  */
 
-const weatherThumbnail = () => {
-	const currentWeatherMap = new Map([
+const WeatherThumbnail = ({weatherDescription}) => {
+	const weatherMap = new Map([
 		['Sunny', sun],
 		['Partly cloudy', partlyCloudy],
 		['Rain', rainCloud],
+		['Overcast', overcast]
 	]);
 
-	return <Image src="" alt="" />
+	return (
+		<Card.Img
+			className="weather-thumbnail"
+			src={weatherMap.get(weatherDescription)}
+			alt=""
+			style={{ 'width': '75px' }} />
+	);
 }
+
+/**
+ * The Temperature and weather description component
+ */
+
+const Temperature = ({currentWeather}) => {
+	
+
+	return (
+		<div className="temperature-component">
+			<p className="actual-temperature"> {currentWeather ? currentWeather.temperature : null} </p>
+			<p className="weather-description"> {currentWeather ? currentWeather.weather_descriptions[0] : null} </p>
+		</div>
+	);
+}
+
 
 /**
  * The main current weather react component
@@ -50,8 +73,16 @@ const CurrentWeather = ({
 	}, [location]);
 
 	return (
-		<Card>
+		<Card className={className}>
 			<Card.Body>
+				<Card.Title className="current-weather-title" > Current Weather </Card.Title>
+				<Card.Subtitle> {currentWeather ? currentWeather.current.observation_time : null} </Card.Subtitle>
+				<WeatherThumbnail
+					weatherDescription={currentWeather ? currentWeather.current.weather_descriptions[0] : null}
+				/>
+				<Temperature 
+					currentWeather={currentWeather ? currentWeather.current : null}
+				/>
 				<Card.Text>
 					{currentWeather ? JSON.stringify(currentWeather.current) : null}
 				</Card.Text>

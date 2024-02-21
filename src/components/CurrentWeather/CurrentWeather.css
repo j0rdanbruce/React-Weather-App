@@ -1,5 +1,39 @@
 
 
 .current-weather {
-    
+    position: absolute;
+    height: 300px;
+    width: 260px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-color: blue;
+}
+
+/*
+.current-weather-title {
+    position: absolute;
+    margin-top: 18px;
+    margin-left: 15px;
+    font-size: 18px;
+}
+*/
+
+.weather-thumbnail {
+    position: absolute;
+    background-color: aquamarine;
+    border-color: black;
+}
+
+.temperature-component {
+    position: absolute;
+    left: 170px;
+    background-color: rgb(87, 114, 105);
+}
+
+.actual-temperature {
+    font-size: 50px;
+}
+
+.weather-description {
+    font-size: large;
 }
