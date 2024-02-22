@@ -11,6 +11,7 @@ import rainCloud from '../../images/rainCloud.png';
 import partlyCloudy from '../../images/partlyCloudy.png';
 import sun from '../../images/sun.png';
 import overcast from '../../images/overcast.png';
+import eye from '../../images/eye.png';
 
 
 /**
@@ -40,12 +41,31 @@ const WeatherThumbnail = ({weatherDescription}) => {
 
 const Temperature = ({currentWeather}) => {
 	
-
 	return (
 		<div className="temperature-component">
 			<p className="actual-temperature"> {currentWeather ? currentWeather.temperature : null} </p>
 			<p className="weather-description"> {currentWeather ? currentWeather.weather_descriptions[0] : null} </p>
 		</div>
+	);
+}
+
+const AdditionalWeatherData = () => {
+	const weatherInfoIcons = [
+		eye,
+	]
+
+	return (
+		<>
+			<tr className="additional-weather-logos">
+				{weatherInfoIcons.map(logo => (
+					<td><img src={logo}/></td>
+				))}
+			</tr>
+			<tr>
+
+			</tr>
+		</>
+		
 	);
 }
 
@@ -83,6 +103,7 @@ const CurrentWeather = ({
 				<Temperature 
 					currentWeather={currentWeather ? currentWeather.current : null}
 				/>
+				<AdditionalWeatherData />
 				<Card.Text>
 					{currentWeather ? JSON.stringify(currentWeather.current) : null}
 				</Card.Text>

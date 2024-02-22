@@ -21,7 +21,6 @@
 .weather-thumbnail {
     position: absolute;
     background-color: aquamarine;
-    border-color: black;
 }
 
 .temperature-component {
@@ -36,4 +35,17 @@
 
 .weather-description {
     font-size: large;
+}
+
+tr.additional-weather-logos {
+    position: absolute;
+    background-color: aqua;
+    bottom: 0;
+    width: 100%;
+}
+
+tr.additional-weather-logos td img{
+    height: 25px;
+    width: auto;
+    background-color: blueviolet;
 }
