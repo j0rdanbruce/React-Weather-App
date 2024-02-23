@@ -2,11 +2,9 @@
 
 .current-weather {
     position: absolute;
-    height: 300px;
-    width: 260px;
+    width: fit-content;
     margin-top: 20px;
     margin-bottom: 20px;
-    border-color: blue;
 }
 
 /*
@@ -20,34 +18,58 @@
 
 .weather-thumbnail {
     position: absolute;
-    background-color: aquamarine;
+    margin-top: 20px;
 }
 
 .temperature-component {
     position: absolute;
-    left: 170px;
-    background-color: rgb(87, 114, 105);
+    right: 0;
+    margin-top: 13px;
+    margin-right: 7px;
 }
 
 .actual-temperature {
-    font-size: 50px;
     margin: 0;
+    margin-right: 13px;
+    font-size: 50px;
+    font-weight: 800;
+}
+
+.temperature-unit {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 17px;
+    font-weight: 600;
 }
 
 .weather-description {
+    position: relative;
     margin: 0;
     font-size: large;
+    font-weight: 600;
 }
 
-tr.additional-weather-logos {
+.additional-weather-data {
+    display: flex;
+    flex-direction: row;
     position: absolute;
-    background-color: aqua;
+    left: 0;
     bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
     width: 100%;
 }
 
-tr.additional-weather-logos td img{
-    height: 25px;
-    width: auto;
-    background-color: blueviolet;
+.individual-weather-item {
+    display: flex;
+    flex-direction: column;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+.individual-weather-item > img+p {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
 }

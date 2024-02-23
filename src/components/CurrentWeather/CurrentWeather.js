@@ -12,6 +12,9 @@ import partlyCloudy from '../../images/partlyCloudy.png';
 import sun from '../../images/sun.png';
 import overcast from '../../images/overcast.png';
 import eye from '../../images/eye.png';
+import windIcon from '../../images/windIcon.png';
+import humidityIcon from '../../images/humidityIcon.png';
+import uvIndexIcon from '../../images/uvIndexIcon.png';
 
 //misc. imports go here
 
@@ -33,9 +36,19 @@ const WeatherThumbnail = ({weatherDescription}) => {
 			className="weather-thumbnail"
 			src={weatherMap.get(weatherDescription)}
 			alt=""
-			style={{ 'width': '75px' }} />
+			style={{ 'width': '100px' }} />
 	);
 }
+
+/**
+ * The measurment unit component for temperature.
+ */
+
+	const TemperatureUnit = () => {
+		return (
+			<p className="temperature-unit">°F</p>
+		);
+	}
 
 /**
  * The Temperature and weather description component
@@ -46,28 +59,38 @@ const Temperature = ({currentWeather}) => {
 	return (
 		<div className="temperature-component">
 			<p className="actual-temperature"> {currentWeather ? currentWeather.temp : null} </p>
+			<TemperatureUnit />
 			<p className="weather-description"> {currentWeather ? currentWeather.conditions : null} </p>
 		</div>
 	);
 }
 
-const AdditionalWeatherData = () => {
-	const weatherInfoIcons = [
-		eye,
+const AdditionalWeatherData = ({currentWeather}) => {
+	if (!currentWeather) {
+		return (
+			<></>
+		);
+	}
+
+	const weatherIconsAndInfo = [
+		{icon: humidityIcon, info: `${JSON.stringify(currentWeather.humidity)}%`},
+		{icon: windIcon, info: `${JSON.stringify(currentWeather.windspeed)}mph`},
+		{icon: eye, info: JSON.stringify(currentWeather.visibility)},
+		{icon: uvIndexIcon, info: JSON.stringify(currentWeather.uvindex)},
 	]
 
 	return (
-		<>
-			<tr className="additional-weather-logos">
-				{weatherInfoIcons.map(logo => (
-					<td><img src={logo} alt="" /></td>
-				))}
-			</tr>
-			<tr>
-
-			</tr>
-		</>
-		
+		<div className="additional-weather-data">
+			{weatherIconsAndInfo.map((item) => (
+				<div className="individual-weather-item">
+					<img
+						src={item.icon} alt=""
+						style={{'height': '30px', 'width': 'auto'}}
+					/>
+					<p>{item.info}</p>
+				</div>
+			))}
+		</div>
 	);
 }
 
@@ -109,6 +132,9 @@ const CurrentWeather = ({
 					weatherDescription={currentWeather ? currentWeather.currentConditions.conditions : null}
 				/>
 				<Temperature 
+					currentWeather={currentWeather ? currentWeather.currentConditions : null}
+				/>
+				<AdditionalWeatherData
 					currentWeather={currentWeather ? currentWeather.currentConditions : null}
 				/>
 			</Card.Body>
