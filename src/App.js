@@ -1,7 +1,5 @@
 import { useState } from "react";
 import LocationForm from "./components/LocationForm/LocationForm";
-import WeatherGraph from "./components/WeatherGraphComponent/WeatherGraph";
-import './components/WeatherGraphComponent/WeatherGraph.css'
 import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
 import './components/CurrentWeather/CurrentWeather.css';
 

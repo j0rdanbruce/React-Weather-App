@@ -13,6 +13,8 @@ import sun from '../../images/sun.png';
 import overcast from '../../images/overcast.png';
 import eye from '../../images/eye.png';
 
+//misc. imports go here
+
 
 /**
  * The image thumbnail component for the current weather forecast component
@@ -21,7 +23,7 @@ import eye from '../../images/eye.png';
 const WeatherThumbnail = ({weatherDescription}) => {
 	const weatherMap = new Map([
 		['Sunny', sun],
-		['Partly cloudy', partlyCloudy],
+		['Partially cloudy', partlyCloudy],
 		['Rain', rainCloud],
 		['Overcast', overcast]
 	]);
@@ -43,8 +45,8 @@ const Temperature = ({currentWeather}) => {
 	
 	return (
 		<div className="temperature-component">
-			<p className="actual-temperature"> {currentWeather ? currentWeather.temperature : null} </p>
-			<p className="weather-description"> {currentWeather ? currentWeather.weather_descriptions[0] : null} </p>
+			<p className="actual-temperature"> {currentWeather ? currentWeather.temp : null} </p>
+			<p className="weather-description"> {currentWeather ? currentWeather.conditions : null} </p>
 		</div>
 	);
 }
@@ -58,7 +60,7 @@ const AdditionalWeatherData = () => {
 		<>
 			<tr className="additional-weather-logos">
 				{weatherInfoIcons.map(logo => (
-					<td><img src={logo}/></td>
+					<td><img src={logo} alt="" /></td>
 				))}
 			</tr>
 			<tr>
@@ -79,10 +81,14 @@ const CurrentWeather = ({
 	location,
 }) => {
 
+	const visualCrossingApiKey = 'SX8VRLTAM39QMEFH4STA9A5T6';
+	const date = new Date();
+
 	const [currentWeather, setCurrentWeather] = useState(null);
 
 	useEffect(() => {
-		location.city && fetch(`http://api.weatherstack.com/current?access_key=bfc1359347b2fac139c86edd5d68eb81&query=${location.city}`)
+		const date = new Date();
+		location.city && fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location.city}/today?key=${visualCrossingApiKey}&include=current`)
 			.then((response) => response.json())
 			.then((data) => {
 				setCurrentWeather(data);
@@ -93,20 +99,18 @@ const CurrentWeather = ({
 	}, [location]);
 
 	return (
-		<Card className={className}>
+		<Card
+			className={className}
+			style={{ 'height' : '250px' }}>
 			<Card.Body>
 				<Card.Title className="current-weather-title" > Current Weather </Card.Title>
-				<Card.Subtitle> {currentWeather ? currentWeather.current.observation_time : null} </Card.Subtitle>
+				<Card.Subtitle> {JSON.stringify(date)} </Card.Subtitle>
 				<WeatherThumbnail
-					weatherDescription={currentWeather ? currentWeather.current.weather_descriptions[0] : null}
+					weatherDescription={currentWeather ? currentWeather.currentConditions.conditions : null}
 				/>
 				<Temperature 
-					currentWeather={currentWeather ? currentWeather.current : null}
+					currentWeather={currentWeather ? currentWeather.currentConditions : null}
 				/>
-				<AdditionalWeatherData />
-				<Card.Text>
-					{currentWeather ? JSON.stringify(currentWeather.current) : null}
-				</Card.Text>
 			</Card.Body>
 		</Card>
 	);
