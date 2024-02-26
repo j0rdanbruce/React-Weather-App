@@ -1,5 +1,3 @@
 .weather-graph {
-    width: auto;
-    height: auto;
-    border-color: brown;
+    opacity: 0.9;
 }
