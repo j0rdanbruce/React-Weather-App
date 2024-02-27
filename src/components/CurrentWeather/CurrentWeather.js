@@ -25,7 +25,7 @@ import uvIndexIcon from '../../images/uvIndexIcon.png';
 
 const WeatherThumbnail = ({weatherDescription}) => {
 	const weatherMap = new Map([
-		['Sunny', sun],
+		['Clear', sun],
 		['Partially cloudy', partlyCloudy],
 		['Rain', rainCloud],
 		['Overcast', overcast]
