@@ -4,6 +4,8 @@ import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
 import './components/CurrentWeather/CurrentWeather.css';
 import WeatherGraph from "./components/WeatherGraphComponent/WeatherGraph";
 import './components/WeatherGraphComponent/WeatherGraph.css';
+import NearbyLocations from "./components/NearbyLocations/NearbyLocations";
+import './components/NearbyLocations/NearbyLocations.css';
 
 //image imports go here
 import sunnySky from "../src/images/sunnySky.jpg";
@@ -12,6 +14,8 @@ function App() {
 
   const [location, setLocation] = useState({
     city: null,
+    latitude: null,
+    longitude: null,
   });
 
   return (
@@ -23,6 +27,9 @@ function App() {
       />
       <CurrentWeather 
         className="current-weather"
+        location={location}
+      />
+      <NearbyLocations 
         location={location}
       />
       <WeatherGraph

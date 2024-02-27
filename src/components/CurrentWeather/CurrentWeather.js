@@ -110,7 +110,6 @@ const CurrentWeather = ({
 	const [currentWeather, setCurrentWeather] = useState(null);
 
 	useEffect(() => {
-		const date = new Date();
 		location.city && fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location.city}/today?key=${visualCrossingApiKey}&include=current`)
 			.then((response) => response.json())
 			.then((data) => {
