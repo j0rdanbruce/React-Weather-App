@@ -12,7 +12,6 @@ const LocationForm = ({location, setLocation}) => {
 			.then((response) => response.json())
 			.then((data) => {
 				setLocation({
-					...location,
 					city: city,
 					latitude: data.latitude,
 					longitude: data.longitude,
