@@ -2,43 +2,92 @@ import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 
 
-const CityCards = ({cities}) => {
-	const weatherToIconMap = new Map([
-		['Clear', require('../../images/sun.png')],
-		['Partially cloudy', require('../../images/partlyCloudy.png')],
-		['Rain', require('../../images/rainCloud.png')],
-		['Overcast', require('../../images/overcast.png')]
-	])
+const CityCard = ({city}) => {
+  const [cityData, setCityData] = useState({
+    name: null,
+    weatherIcon: null,
+    weatherCondition: null,
+  });
 
-	function getWeatherDescription(location) {
-		const visualCrossingApiKey = 'SX8VRLTAM39QMEFH4STA9A5T6';
-		let currentWeather;
+  useEffect(() => {
+    const visualCrossingApiKey = 'SX8VRLTAM39QMEFH4STA9A5T6';
+    const weatherToIconMap = new Map([
+      ['Clear', require('../../images/sun.png')],
+      ['Partially cloudy', require('../../images/partlyCloudy.png')],
+      ['Rain', require('../../images/rainCloud.png')],
+      ['Overcast', require('../../images/overcast.png')]
+    ]);
 
-		fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/today?key=${visualCrossingApiKey}&include=current`)
+    fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/today?key=${visualCrossingApiKey}&include=current`)
 			.then((response) => response.json())
 			.then((data) => {
-				currentWeather = data.currentConditions.conditions;
+				setCityData({
+          name: city,
+          weatherIcon: weatherToIconMap.get(data.currentConditions.conditions),
+          weatherCondition: data.currentConditions.conditions
+        });
 			})
 			.catch((error) => {
 				console.error(error);
 			});
-		return JSON.stringify(currentWeather);
-	}
+  }, [city]);
 
-	if (!cities) {
-		return null;
-	}
 	return (
-		cities.map((city) => (
-			<Card>
-				<Card.Text>
-					{`${city.name}, ${city.region}`}
-				</Card.Text>
-				<Card.Text>
-					{getWeatherDescription(`${city.name}, ${city.region}`)}
-				</Card.Text>
-			</Card>
-		))
+    <Card
+      style={{
+        width: '100%',
+        height: '40px',
+      }}
+    >
+      <Card.Body
+        style={{
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          padding: '0',
+          width: '100%'
+        }}
+      >
+        <Card.Img 
+          src={cityData.weatherIcon}
+          alt=""
+          style={{
+            position: 'absolute',
+            left: '0',
+            margin: '5px',
+            width: '25px',
+            height: 'auto',
+          }}
+        />
+        <Card.Text
+          style={{
+            position: 'absolute',
+            left: '40px',
+            margin: '5px',
+            width: '100px',
+            height: 'auto',
+            fontSize: '12px',
+            fontWeight: '600',
+          }}
+        >
+          {cityData.name}
+        </Card.Text>
+        <Card.Text
+          style={{
+            position: 'absolute',
+            right: '0',
+            margin: '5px',
+            width: '90px',
+            height: 'auto',
+            fontSize: '12px',
+            fontWeight: '600',
+          }}
+        >
+          {cityData.weatherCondition}
+        </Card.Text>
+      </Card.Body>
+    </Card>
 	);
 }
 
@@ -57,7 +106,7 @@ const NearbyLocations = ({location}) => {
 		fetch(geoDBUrl, options)
 			.then((response) => response.json())
 			.then((data) => {
-				setNearbyCities(data.data)
+				setNearbyCities(data.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -67,18 +116,26 @@ const NearbyLocations = ({location}) => {
 	return (
 		<Card
 			style={{
+        position: "absolute",
+        top: '20px',
+        right: '0',
 				padding: '10px',
-				width: '460px',
+				width: '300px',
 				height: 'auto',
 			}}
 		>
 			<Card.Title>
 				Nearby Cities
 			</Card.Title>
-			<Card.Body>{JSON.stringify(nearbyCities)}</Card.Body>
-			<CityCards 
-				cities={nearbyCities}
-			/>
+			<Card.Body>
+        {nearbyCities && nearbyCities.map((city) => {
+          return (
+            <CityCard
+              city={`${city.name}, ${city.regionCode}`}
+            />
+          );
+        })}
+      </Card.Body>
 		</Card>
 	);
 }
