@@ -5,6 +5,7 @@
 //React imports go here
 import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
+import moment from "moment";
 
 //image imports
 import rainCloud from '../../images/rainCloud.png';
@@ -17,6 +18,15 @@ import humidityIcon from '../../images/humidityIcon.png';
 import uvIndexIcon from '../../images/uvIndexIcon.png';
 
 //misc. imports go here
+
+/**
+ * section for helper functions.
+ */
+
+function getCurrentDate() {
+	const dateObj = moment();
+	return dateObj.format("MMM Do YY");
+}
 
 
 /**
@@ -126,7 +136,7 @@ const CurrentWeather = ({
 			style={{ 'height' : '250px' }}>
 			<Card.Body>
 				<Card.Title className="current-weather-title" > Current Weather </Card.Title>
-				<Card.Subtitle> {JSON.stringify(date)} </Card.Subtitle>
+				<Card.Subtitle> {getCurrentDate()} </Card.Subtitle>
 				<WeatherThumbnail
 					weatherDescription={currentWeather ? currentWeather.currentConditions.conditions : null}
 				/>
