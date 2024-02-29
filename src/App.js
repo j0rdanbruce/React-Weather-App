@@ -4,6 +4,7 @@ import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
 import './components/CurrentWeather/CurrentWeather.css';
 import WeatherGraph from "./components/WeatherGraphComponent/WeatherGraph";
 import './components/WeatherGraphComponent/WeatherGraph.css';
+import WeatherForecast from "./components/WeatherForecast/WeatherForecast";
 import NearbyLocations from "./components/NearbyLocations/NearbyLocations";
 import './components/NearbyLocations/NearbyLocations.css';
 
@@ -27,6 +28,9 @@ function App() {
       />
       <CurrentWeather 
         className="current-weather"
+        location={location}
+      />
+      <WeatherForecast
         location={location}
       />
       <NearbyLocations 
