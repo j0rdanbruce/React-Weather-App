@@ -20,7 +20,6 @@ const LocationForm = ({location, setLocation}) => {
 			.catch((error) => {
 				console.error(error);
 			})
-		setCity("");		//clears the search box so the city value set to empty string "".
 	}
 
 	return (
