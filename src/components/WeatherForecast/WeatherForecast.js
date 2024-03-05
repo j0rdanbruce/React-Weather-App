@@ -1,16 +1,15 @@
 //imports go here
 import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
+import WeatherThumbnail from "../WeatherThumbnail/WeatherThumbnail";
 
 /**
  * The component for the single day weather description of the entire forecast
- * 
- * NOTE:
- *  -the weatehrData prop key value is 'weatherData'. The value is the actual weatehrdata for that single day of the forecast.
  */
 
-const SingleDayForecast = (weatherData) => {
-  const dateObj = new Date(weatherData.weatherData.datetime);
+const SingleDayForecast = ({weatherData}) => {
+  const dateObj = new Date(weatherData.datetime);
+
   function getDate(dateObj) {
     const monthMap = {
       0: 'Jan',
@@ -30,12 +29,23 @@ const SingleDayForecast = (weatherData) => {
   }
   
   return (
-    <Card>
+    <Card
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        position: 'relative',
+        height: '40px',
+        width: '100%',
+        alignItems: 'center'
+      }}
+    >
+      <WeatherThumbnail
+        weatherCondition={weatherData.conditions}
+      ></WeatherThumbnail>
       <Card.Body>
         <Card.Text>
-          {JSON.stringify(weatherData.weatherData.conditions)}
-          {JSON.stringify(weatherData.weatherData.temp)}
           {JSON.stringify(getDate(dateObj))}
+          {JSON.stringify(weatherData.temp)}
         </Card.Text>
       </Card.Body>
     </Card>
@@ -76,7 +86,13 @@ const WeatherForecast = ({location}) => {
   }, [location]);
 
   return (
-    <Card>
+    <Card
+      style={{
+        position: 'absolute',
+        top: '20px',
+        left: '400px'
+      }}
+    >
       <Card.Body>
         <Card.Title>Forecast</Card.Title>
         {forecast.weatherData && forecast.weatherData.map((singleDayForecast) => {
@@ -86,7 +102,6 @@ const WeatherForecast = ({location}) => {
             />
           );
         })}
-        {forecast.weatherData ? JSON.stringify(forecast.weatherData) : null}
       </Card.Body>
     </Card>
   );  
