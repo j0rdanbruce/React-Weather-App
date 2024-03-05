@@ -90,7 +90,8 @@ const WeatherForecast = ({location}) => {
       style={{
         position: 'absolute',
         top: '20px',
-        left: '400px'
+        left: '360px',
+        width: '300px'
       }}
     >
       <Card.Body>
