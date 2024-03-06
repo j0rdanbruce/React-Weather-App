@@ -133,7 +133,10 @@ const CurrentWeather = ({
 	return (
 		<Card
 			className={className}
-			style={{ 'height' : '250px' }}>
+			style={{
+				height : '250px',
+				width: '250px'
+			}}>
 			<Card.Body>
 				<Card.Title className="current-weather-title" > Current Weather </Card.Title>
 				<Card.Subtitle> {getCurrentDate()} </Card.Subtitle>
