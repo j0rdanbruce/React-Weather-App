@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LocationForm from "./components/LocationForm/LocationForm";
 import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
 import './components/CurrentWeather/CurrentWeather.css';
@@ -8,8 +8,10 @@ import WeatherForecast from "./components/WeatherForecast/WeatherForecast";
 import NearbyLocations from "./components/NearbyLocations/NearbyLocations";
 import './components/NearbyLocations/NearbyLocations.css';
 
-//image imports go here
-import sunnySky from "../src/images/sunnySky.jpg";
+/**
+ * The main component of the Weather Application.
+ * @returns the main weather app component.
+ */
 
 function App() {
 
@@ -17,10 +19,33 @@ function App() {
     city: null,
     latitude: null,
     longitude: null,
+    weatherCondition: null,
   });
 
+  function getWeatherBackgroundImage(weatherCondition) {
+    const weatherConditionMap = new Map([
+      ['Clear', require('./images/sunnySky.jpg')],
+      ['Partially cloudy', require('./images/partlyCloudy.jpg')],
+      ['Rain', require('./images/rainyDay.jpg')],
+      ['Rain, Overcast', require('./images/rainyDay.jpg')],
+      ['Rain, Partially cloudy', require('./images/rainyDay.jpg')],
+      ['Overcast', require('./images/overcastDay.jpg')]
+    ]);
+
+    return (weatherConditionMap.get(weatherCondition));
+  }
+
+  useEffect(() => {
+    const mainAppElement = document.getElementsByClassName('App')[0];
+    mainAppElement.style.backgroundImage = `url(${getWeatherBackgroundImage(location.weatherCondition)})`
+  }, [location]);
+
   return (
-    <div className="App" style={{backgroundImage: `url(${sunnySky})`}}>
+    <div className="App"
+      style={{
+        backgroundSize: '100% 100%'
+      }}
+    >
       <h1>{location.city}</h1>
       <LocationForm
         location={location}

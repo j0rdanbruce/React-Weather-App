@@ -15,12 +15,12 @@ const LocationForm = ({location, setLocation}) => {
 					city: city,
 					latitude: data.latitude,
 					longitude: data.longitude,
+					weatherCondition: data.currentConditions.conditions
 				});
 			})
 			.catch((error) => {
 				console.error(error);
 			})
-		setCity("");		//clears the search box so the city value set to empty string "".
 	}
 
 	return (
