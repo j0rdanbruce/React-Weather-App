@@ -16,6 +16,7 @@ const CityCard = ({city}) => {
       ['Partially cloudy', require('../../images/partlyCloudy.png')],
       ['Rain', require('../../images/rainCloud.png')],
       ['Rain, Partially cloudy', require('../../images/rainCloud.png')],
+      ['Rain, Overcast', require('../../images/rainCloud.png')],
       ['Overcast', require('../../images/overcast.png')]
     ]);
 
