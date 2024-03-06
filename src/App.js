@@ -28,6 +28,7 @@ function App() {
       ['Partially cloudy', require('./images/partlyCloudy.jpg')],
       ['Rain', require('./images/rainyDay.jpg')],
       ['Rain, Overcast', require('./images/rainyDay.jpg')],
+      ['Rain, Partially cloudy', require('./images/rainyDay.jpg')],
       ['Overcast', require('./images/overcastDay.jpg')]
     ]);
 
@@ -40,7 +41,11 @@ function App() {
   }, [location]);
 
   return (
-    <div className="App">
+    <div className="App"
+      style={{
+        backgroundSize: '100% 100%'
+      }}
+    >
       <h1>{location.city}</h1>
       <LocationForm
         location={location}
