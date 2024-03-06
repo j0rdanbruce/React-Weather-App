@@ -1,6 +1,8 @@
 //imports go here
 import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
+import ToggleButton from "react-bootstrap/ToggleButton";
+import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import WeatherThumbnail from "../WeatherThumbnail/WeatherThumbnail";
 
 /**
@@ -59,26 +61,29 @@ const SingleDayForecast = ({weatherData}) => {
 
 const WeatherForecast = ({location}) => {
   const [forecast, setForecast] = useState({
+    dateRange: 7,
     weatherData: null
   });
+
+  function handleDateRangeToggle(newDateRangeValue) {
+    setForecast({
+      ...forecast,
+      dateRange: newDateRangeValue
+    });
+  }
   
   useEffect(() => {
     const visualCrossingApiKey = 'SX8VRLTAM39QMEFH4STA9A5T6';
-    const weatherToIconMap = new Map([
-      ['Clear', require('../../images/sun.png')],
-      ['Partially cloudy', require('../../images/partlyCloudy.png')],
-      ['Rain', require('../../images/rainCloud.png')],
-      ['Overcast', require('../../images/overcast.png')]
-    ]);
 
     location.city && fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=${location.city}&forecastDays=10&aggregateHours=24&unitGroup=us&shortColumnNames=true&contentType=json&key=${visualCrossingApiKey}`)
       .then((response) => response.json())
       .then((data) => {
         const originalData = data.locations[location.city].values;  //'originalData' includes the current day as well. Current weather day is already displayed in another component.
         const convertedData = originalData.slice(1, originalData.length);
-        setForecast({
+        setForecast((forecast) => ({
+          ...forecast,
           weatherData: convertedData,
-        });
+        }));
       })
       .catch((error) => {
         console.log(error);
@@ -91,12 +96,30 @@ const WeatherForecast = ({location}) => {
         position: 'absolute',
         top: '20px',
         left: '360px',
-        width: '300px'
+        width: '300px',
       }}
     >
       <Card.Body>
         <Card.Title>Forecast</Card.Title>
-        {forecast.weatherData && forecast.weatherData.map((singleDayForecast) => {
+        <ToggleButtonGroup type="radio" name="dateRangeOptions" defaultValue={7} size="sm"
+          style={{
+            position: 'absolute',
+            top: '10px',
+            right: '30px'
+          }}
+        >
+          <ToggleButton
+            id="tbg-radio-1"
+            value={7}
+            onChange={(event) => handleDateRangeToggle(event.target.value)}
+          >7 Days</ToggleButton>
+          <ToggleButton
+            id="tbg-radio-2"
+            value={10}
+            onChange={(event) => handleDateRangeToggle(event.target.value)}
+          >10 Days</ToggleButton>
+        </ToggleButtonGroup>
+        {forecast.weatherData && forecast.weatherData.slice(0, forecast.dateRange).map((singleDayForecast) => { //slice method takes beginning or array and end dateRange value of forecast state.
           return (
             <SingleDayForecast
               weatherData={singleDayForecast}
