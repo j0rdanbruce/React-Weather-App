@@ -15,6 +15,7 @@ const LocationForm = ({location, setLocation}) => {
 					city: city,
 					latitude: data.latitude,
 					longitude: data.longitude,
+					weatherCondition: data.currentConditions.conditions
 				});
 			})
 			.catch((error) => {
