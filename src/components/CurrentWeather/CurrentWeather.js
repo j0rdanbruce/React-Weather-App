@@ -38,6 +38,7 @@ const WeatherThumbnail = ({weatherDescription}) => {
 		['Clear', sun],
 		['Partially cloudy', partlyCloudy],
 		['Rain', rainCloud],
+		['Rain, Partially cloudy', rainCloud],
 		['Overcast', overcast]
 	]);
 
