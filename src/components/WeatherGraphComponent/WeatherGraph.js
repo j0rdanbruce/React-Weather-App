@@ -9,7 +9,7 @@ const LineGraph = ({weatherData}) => {
 			width={900}
 			height={300}
 			data={weatherData}
-			margin={{ top: 35, right: 35, bottom: 0, left: -30 }}
+			margin={{ top: 30, right: 35, bottom: 25, left: -30 }}
 		>
 			<Line type="monotone" dataKey="temp" stroke="#8884d8"/>
 			<CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
@@ -39,7 +39,14 @@ const WeatherGraph = ({className, location}) => {
 	return (
 		<Card
 			className={className}
-			style={{width: '90%', height: 'auto'}}
+			style={{
+				position: 'relative',
+				bottom: 0,
+				marginLeft: 'auto',
+				marginRight: 'auto',
+				width: '900px',
+				height: '300px'
+			}}
 		>
 			<Card.Body>
 				{weatherData ? <LineGraph weatherData={weatherData.days[0].hours} /> : 'Weather Data'}
