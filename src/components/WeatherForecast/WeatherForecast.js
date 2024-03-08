@@ -94,7 +94,7 @@ const WeatherForecast = ({location}) => {
     <Card
       style={{
         position: 'absolute',
-        top: '20px',
+        top: '21px',
         left: '360px',
         width: '300px',
       }}
